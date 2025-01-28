@@ -20,7 +20,6 @@ module.exports = (client) => {
             }
         }
 
-        const clientID = APPID // Bot ID
         const guildID = '1061941946786009128' // Server ID In Which Your Slash Commands Should Work If You Don't Want For Multi Servers
         const rest = new REST({ version: '10' }).setToken(TOKEN)
 
@@ -28,15 +27,15 @@ module.exports = (client) => {
             console.log(`Discordのbotコマンドをすべて更新中`)
 
             await rest.put(
-                //Routes.applicationGuildCommands(clientID, guildID), // This Will Work For Specific Guild(Server)
-                Routes.applicationCommands(clientID), // This Will Work For Multi Guild(Server)
+                //Routes.applicationGuildCommands(APPID, guildID), // This Will Work For Specific Guild(Server)
+                Routes.applicationCommands(APPID), // This Will Work For Multi Guild(Server)
                 { body: client.commandArray }
             )
 
         // グローバルコマンドの取得
         console.log('グローバルコマンドを取得中...');
         const globalCommands = await rest.get(
-            Routes.applicationCommands(clientID)
+            Routes.applicationCommands(APPID)
         );
         console.log('登録されているグローバルコマンド:');
         globalCommands.forEach(cmd => {
@@ -46,7 +45,7 @@ module.exports = (client) => {
         // 特定のサーバーのコマンドを取得
         console.log('\nギルドコマンドを取得中...');
         const guildCommands = await rest.get(
-            Routes.applicationGuildCommands(clientID, guildID)
+            Routes.applicationGuildCommands(APPID, guildID)
         );
         console.log('登録されているギルドコマンド:');
         guildCommands.forEach(cmd => {

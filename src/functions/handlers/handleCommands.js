@@ -1,6 +1,9 @@
 const { REST, Routes } = require('discord.js')
 const fs = require('fs')
-const { token, appID } = require('../../../config.json')
+const dotenv = require('dotenv');
+dotenv.config();
+const TOKEN = process.env.TOKEN;
+const APPID = process.env.APPID;
 
 module.exports = (client) => {
     client.handleCommands = async () => {
@@ -17,9 +20,9 @@ module.exports = (client) => {
             }
         }
 
-        const clientID = appID // Bot ID
+        const clientID = APPID // Bot ID
         const guildID = '1061941946786009128' // Server ID In Which Your Slash Commands Should Work If You Don't Want For Multi Servers
-        const rest = new REST({ version: '10' }).setToken(token)
+        const rest = new REST({ version: '10' }).setToken(TOKEN)
 
         try {
             console.log(`Discordのbotコマンドをすべて更新中`)

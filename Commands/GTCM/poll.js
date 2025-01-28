@@ -67,7 +67,7 @@ module.exports = {
       20: "🇹",
     };
 
-    const answerList = answer ? answer.split("|").map((c) => c.trim()) : [];
+    const answerList = answer ? answer.split(" ").map((c) => c.trim()) : [];
 
     let startTime;
     if (startTimeString) {
@@ -91,13 +91,13 @@ module.exports = {
       );
 
       if (startTime <= now) {
-        await interaction.followUp({
+        await interaction.reply({
           content: `過去の時間は設定できません！(次の日の時間の設定も不可能です。)`,
           flags: MessageFlags.Ephemeral,
         });
       }
 
-      await interaction.channel.send({
+      await interaction.reply({
         content: `ポールが ${startTime.toLocaleTimeString("ja-JP", {
           hour: "2-digit",
           minute: "2-digit",

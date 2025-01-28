@@ -20,7 +20,7 @@ module.exports = {
       option
         .setName("選択肢")
         .setDescription(
-          "選択肢をここに書いてください！選択肢をわけるには'|'という記号を使ってください！"
+          "選択肢をここに書いてください！選択肢をわけるには半角スペースを使ってください！"
         )
         .setRequired(false)
     )
@@ -67,7 +67,7 @@ module.exports = {
       20: "🇹",
     };
 
-    const answerList = answer ? answer.split("|").map((c) => c.trim()) : [];
+    const answerList = answer ? answer.split(" ").map((c) => c.trim()) : [];
 
     let startTime;
     if (startTimeString) {
@@ -103,7 +103,6 @@ module.exports = {
           hour: "2-digit",
           minute: "2-digit",
         })} に開始されます！お待ちください。`,
-        flags: MessageFlags.Ephemeral,
       });
     } else {
       // 即時開始

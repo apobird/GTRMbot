@@ -67,7 +67,7 @@ module.exports = {
       20: "🇹",
     };
 
-    const answerList = answer ? answer.split(" ").map((c) => c.trim()) : [];
+    const answerList = answer ? answer.split("|").map((c) => c.trim()) : [];
 
     let startTime;
     if (startTimeString) {
@@ -90,9 +90,10 @@ module.exports = {
         minutes
       );
 
+      // startTime が過去の場合の処理
       if (startTime <= now) {
-        await interaction.reply({
-          content: `過去の時間は設定できません！(次の日の時間の設定も不可能です。)`,
+        return interaction.reply({
+          content: `指定された時刻が過去になっています。未来の時刻を指定してください！`,
           flags: MessageFlags.Ephemeral,
         });
       }
@@ -102,6 +103,7 @@ module.exports = {
           hour: "2-digit",
           minute: "2-digit",
         })} に開始されます！お待ちください。`,
+        flags: MessageFlags.Ephemeral,
       });
     } else {
       // 即時開始
@@ -152,6 +154,6 @@ module.exports = {
         msg.react("✅");
         msg.react("❎");
       }
-    }, delay);
+    }, Math.max(delay, 0)); // delayが0未満の場合即座に送信
   },
 };
